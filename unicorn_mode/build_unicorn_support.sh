@@ -114,9 +114,9 @@ CKSUM=`sha384sum -- "$ARCHIVE" 2>/dev/null | cut -d' ' -f1`
 
 if [ ! "$CKSUM" = "$UNICORN_SHA384" ]; then
 
-  echo "[*] Downloading Unicorn v1.0.1 from the web..."
-  rm -f "$ARCHIVE"
-  sudo -u ${USERNAME} wget -O "$ARCHIVE" -- "$UNICORN_URL" || exit 1
+  # echo "[*] Downloading Unicorn v1.0.1 from the web..."
+  # rm -f "$ARCHIVE"
+  # sudo -u ${USERNAME} wget -O "$ARCHIVE" -- "$UNICORN_URL" || exit 1
 
   CKSUM=`sha384sum -- "$ARCHIVE" 2>/dev/null | cut -d' ' -f1`
 
@@ -140,7 +140,7 @@ sudo -u ${USERNAME} tar xzf "$ARCHIVE" || exit 1
 
 echo "[+] Unpacking successful."
 
-rm -rf "$ARCHIVE" || exit 1
+# rm -rf "$ARCHIVE" || exit 1
 
 echo "[*] Applying patches..."
 
@@ -161,7 +161,7 @@ echo "[+] Configuration complete."
 
 echo "[*] Attempting to build Unicorn (fingers crossed!)..."
 
-sudo -u ${USERNAME} make || exit 1
+UNICORN_QEMU_FLAGS="--python=/usr/bin/python2" make || exit 1
 
 echo "[+] Build process successful!"
 
