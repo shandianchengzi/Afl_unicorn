@@ -180,8 +180,8 @@ git pull
 sh -c 'git stash && git stash drop' 1>/dev/null 2>/dev/null
 git checkout "$UNICORNAFL_VERSION" || exit 1
 
-echo "[*] making sure afl++ header files match"
-cp "../../include/config.h" "./include" || exit 1
+# echo "[*] making sure afl++ header files match"
+# cp "../../include/config.h" "./include" || exit 1
 
 echo "[*] Configuring Unicorn build..."
 
