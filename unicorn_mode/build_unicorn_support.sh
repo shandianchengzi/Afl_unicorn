@@ -33,6 +33,9 @@
 # You must make sure that Unicorn Engine is not already installed before
 # running this script. If it is, please uninstall it first.
 
+sudo apt remove cmake -y
+sudo snap install cmake --classic
+
 UNICORNAFL_VERSION="$(cat ./UNICORNAFL_VERSION)"
 
 echo "================================================="
@@ -178,7 +181,7 @@ cd "unicornafl" || exit 1
 echo "[*] Checking out $UNICORNAFL_VERSION"
 git pull
 sh -c 'git stash && git stash drop' 1>/dev/null 2>/dev/null
-git checkout "$UNICORNAFL_VERSION" || exit 1
+git reset --soft "$UNICORNAFL_VERSION" || exit 1
 
 # echo "[*] making sure afl++ header files match"
 # cp "../../include/config.h" "./include" || exit 1
@@ -205,6 +208,7 @@ else
   THREADS=$CORES $PYTHONBIN setup.py install --force || exit 1
 fi
 cd ../../../
+
 echo "[*] Installing Unicornafl python bindings..."
 cd bindings/python || exit 1
 if [ -z "$VIRTUAL_ENV" ]; then
